@@ -14,6 +14,12 @@ package com.csadovsky
  * Learning rate is the step size for the perceptron to take when updating the weights. If the learning rate is too
  * large, the perceptron will overshoot the minimum. If the learning rate is too small, the perceptron will take too
  * long to converge to a solution.
+ *
+ * Error is the difference between the expected output and the actual output. The error is used to update the weights.
+ * Learning rate is then multiplied by the error to determine the step size for the perceptron to take when updating
+ * the weights. Error alone is not used to update the weights because the error can be very large and the step size
+ * would be too large. The error is also used to determine if the perceptron has converged to a solution by checking
+ * if the error is 0.
  */
 class Perceptron(val inputsClass1: Array<DoubleArray>,
                  val inputsClass2: Array<DoubleArray>,
@@ -97,6 +103,11 @@ class Perceptron(val inputsClass1: Array<DoubleArray>,
     }
 
     fun getSeparationLineCoordinates(): Array<DoubleArray> {
+
+        if (weights.size != 2) {
+            throw IllegalArgumentException("Cannot visualize data with more than 2 features.")
+        }
+
         val x1Coordinate = 0.0
         val y1Coordinate = -bias / weights[1]
         val x2Coordinate = 1.0

@@ -16,12 +16,12 @@ import org.knowm.xchart.XYSeries
  * points is -1 (meaning FALSE)
  */
 fun main() {
-    // Inputs for class 1 - AND => TRUE
+    // Inputs for class 1 - AND => TRUE - in Perceptron represented as 1
     val inputsClass1 = arrayOf(
         doubleArrayOf(1.0, 1.0)
     )
 
-    // Inputs for class 2 - AND => FALSE
+    // Inputs for class 2 - AND => FALSE - in Perceptron represented as -1
     val inputsClass2 = arrayOf(
         doubleArrayOf(0.0, 0.0),
         doubleArrayOf(0.0, 1.0),
