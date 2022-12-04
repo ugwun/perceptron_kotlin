@@ -1,4 +1,4 @@
-package com.csadovsky
+package com.csadovsky.perceptron
 
 /**
  * Perceptron to recognize two different classes
@@ -45,22 +45,22 @@ class Perceptron(val inputsClass1: Array<DoubleArray>,
     var bias = Math.random()
 
     // Train perceptron
-    fun train(epochs: Int = 10) {
+    fun train(epochs: Int = 10, chart: Chart? = null) {
         for (i in 0..epochs) {
             // Train on class 1
             for (input in inputsClass1) {
-                train(input, 1)
+                train(input, 1, chart)
             }
 
             // Train on class 2
             for (input in inputsClass2) {
-                train(input, -1)
+                train(input, -1, chart)
             }
         }
     }
 
     // Train perceptron on a single input
-    fun train(input: DoubleArray, expected: Int) {
+    private fun train(input: DoubleArray, expected: Int, chart: Chart? = null) {
         // Calculate output
         val output = calculateOutput(input)
 
@@ -70,6 +70,7 @@ class Perceptron(val inputsClass1: Array<DoubleArray>,
         // Update weights
         for (i in 0 until weights.size) {
             weights[i] += learningRate * error * input[i]
+            chart?.update(getSeparationLineCoordinates())
         }
 
         // Update bias

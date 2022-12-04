@@ -1,9 +1,4 @@
-package com.csadovsky
-
-import org.knowm.xchart.QuickChart
-import org.knowm.xchart.SwingWrapper
-import org.knowm.xchart.XYChart
-import org.knowm.xchart.XYSeries
+package com.csadovsky.perceptron
 
 
 /*
@@ -31,8 +26,10 @@ fun main() {
     // Create perceptron
     val perceptron = Perceptron(inputsClass1, inputsClass2)
 
+    val chart = Chart(perceptron.getSeparationLineCoordinates(), inputsClass1, inputsClass2)
+
     // Train perceptron
-    perceptron.train()
+    perceptron.train(chart = chart)
 
     // Print weights and bias
     println("Weights: ${perceptron.weights.contentToString()}")
@@ -50,28 +47,7 @@ fun main() {
 
     println("Model: ${perceptron.getModel()}")
 
-    // Plot data
-    val separationLineCoordinates = perceptron.getSeparationLineCoordinates()
-    val separationLineXCoordinates = separationLineCoordinates.get(0)
-    val separationLineYCoordinates = separationLineCoordinates.get(1)
+//    Chart(perceptron.getSeparationLineCoordinates(), inputsClass1, inputsClass2)
 
-    val chart: XYChart = QuickChart.getChart("Boolean AND",
-        "X",
-        "Y",
-        "Separation Line",
-        separationLineXCoordinates,
-        separationLineYCoordinates)
-
-    // Add TRUE data points
-    chart.addSeries("True",
-        inputsClass1.map { it[0] }.toDoubleArray(),
-        inputsClass1.map { it[1] }.toDoubleArray())
-        .xySeriesRenderStyle = XYSeries.XYSeriesRenderStyle.Scatter
-    // Add FALSE data points
-    chart.addSeries("False",
-        inputsClass2.map { it[0] }.toDoubleArray(),
-        inputsClass2.map { it[1] }.toDoubleArray())
-        .xySeriesRenderStyle = XYSeries.XYSeriesRenderStyle.Scatter
-
-    SwingWrapper(chart).displayChart()
 }
+
