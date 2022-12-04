@@ -25,6 +25,7 @@ class Chart(private val separationLineCoordinates: Array<DoubleArray>,
         val separationLineXCoordinates = separationLineCoordinates.get(0)
         val separationLineYCoordinates = separationLineCoordinates.get(1)
 
+        // Create chart with separation line
         xyChart = QuickChart.getChart(
             "Boolean AND",
             "X",
@@ -63,8 +64,10 @@ class Chart(private val separationLineCoordinates: Array<DoubleArray>,
         val separationLineXCoordinates = separationLineCoordinates.get(0)
         val separationLineYCoordinates = separationLineCoordinates.get(1)
 
+        // give the user a chance to see the update of the chart
         Thread.sleep(200)
 
+        // new separation line coordinates
         xyChart.updateXYSeries(
             "Separation Line",
             separationLineXCoordinates,

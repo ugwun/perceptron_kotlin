@@ -88,7 +88,7 @@ class Perceptron(val inputsClass1: Array<DoubleArray>,
         // Add bias
         sum += bias
 
-        // Return sign of sum
+        // Activation function
         return if (sum > 0) 1 else -1
     }
 
