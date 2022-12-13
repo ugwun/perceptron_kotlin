@@ -53,6 +53,8 @@ class Chart(private val separationLineCoordinates: Array<DoubleArray>,
         // Show chart
         chartJFrame = SwingWrapper(xyChart).displayChart()
 
+        chartJFrame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
+        chartJFrame.requestFocus()
     }
 
     /**

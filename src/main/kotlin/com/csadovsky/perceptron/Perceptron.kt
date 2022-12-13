@@ -45,22 +45,23 @@ class Perceptron(val inputsClass1: Array<DoubleArray>,
     var bias = Math.random()
 
     // Train perceptron
-    fun train(epochs: Int = 10, chart: Chart? = null) {
+    fun train(epochs: Int = 10, onUpdate: (Array<DoubleArray>) -> Unit = {}
+              ) {
         for (i in 0..epochs) {
             // Train on class 1
             for (input in inputsClass1) {
-                train(input, 1, chart)
+                train(input, 1, onUpdate)
             }
 
             // Train on class 2
             for (input in inputsClass2) {
-                train(input, -1, chart)
+                train(input, -1, onUpdate)
             }
         }
     }
 
     // Train perceptron on a single input
-    private fun train(input: DoubleArray, expected: Int, chart: Chart? = null) {
+    private fun train(input: DoubleArray, expected: Int, onUpdate: (Array<DoubleArray>) -> Unit = {}) {
         // Calculate output
         val output = calculateOutput(input)
 
@@ -70,7 +71,7 @@ class Perceptron(val inputsClass1: Array<DoubleArray>,
         // Update weights
         for (i in 0 until weights.size) {
             weights[i] += learningRate * error * input[i]
-            chart?.update(getSeparationLineCoordinates())
+            onUpdate(getSeparationLineCoordinates())
         }
 
         // Update bias
