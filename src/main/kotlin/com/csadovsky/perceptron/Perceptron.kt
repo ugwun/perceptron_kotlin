@@ -1,5 +1,7 @@
 package com.csadovsky.perceptron
 
+import org.jline.terminal.Terminal
+
 /**
  * Perceptron to recognize two different classes
  *
@@ -21,9 +23,11 @@ package com.csadovsky.perceptron
  * would be too large. The error is also used to determine if the perceptron has converged to a solution by checking
  * if the error is 0.
  */
-class Perceptron(val inputsClass1: Array<DoubleArray>,
-                 val inputsClass2: Array<DoubleArray>,
-                 val learningRate: Double = 0.1
+class Perceptron(
+    val inputsClass1: Array<DoubleArray>,
+    val inputsClass2: Array<DoubleArray>,
+    val learningRate: Double = 0.1,
+    private val terminal: Terminal
 ) {
 
     init {
@@ -115,7 +119,7 @@ class Perceptron(val inputsClass1: Array<DoubleArray>,
         val x2Coordinate = 1.0
         val y2Coordinate = (-bias - weights[0]) / weights[1]
 
-        println("Separation line Coordinates:\nx1: $x1Coordinate, y1: $y1Coordinate, x2: $x2Coordinate, y2: $y2Coordinate")
+        terminal.writer().println("Separation line Coordinates:\nx1: $x1Coordinate, y1: $y1Coordinate, x2: $x2Coordinate, y2: $y2Coordinate")
 
         return arrayOf(doubleArrayOf(x1Coordinate, x2Coordinate), doubleArrayOf(y1Coordinate, y2Coordinate))
     }

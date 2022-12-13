@@ -19,11 +19,14 @@ repositories {
 extra["springShellVersion"] = "3.0.0-M3"
 
 dependencies {
-    implementation("org.knowm.xchart:xchart:3.8.1")
+    implementation("org.knowm.xchart:xchart:3.8.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.shell:spring-shell-starter")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.shell:spring-shell-test")
+    testImplementation("org.springframework.shell:spring-shell-test-autoconfigure")
+    testImplementation("org.awaitility:awaitility:4.2.0")
 }
 
 dependencyManagement {

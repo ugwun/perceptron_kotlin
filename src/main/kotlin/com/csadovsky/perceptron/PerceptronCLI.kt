@@ -1,5 +1,7 @@
 package com.csadovsky.perceptron
 
+import org.jline.terminal.Terminal
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 import org.springframework.shell.standard.ShellOption
@@ -17,7 +19,8 @@ import org.springframework.shell.standard.ShellOption
  * time. This is because the weights are initialized randomly each time.
  */
 @ShellComponent
-class PerceptronCLI {
+class PerceptronCLI (@Autowired val terminal: Terminal) {
+
     // Define a field for the perceptron instance.
     private lateinit var perceptron: Perceptron
 
@@ -42,7 +45,10 @@ class PerceptronCLI {
         @ShellOption(value = ["-s", "--show-chart"], defaultValue = "true", help = "Whether to show a chart.")
         showChart: Boolean
     ) {
-        perceptron = Perceptron(inputsClassTrue, inputsClassFalse, learningRate)
+        terminal.writer().println("Training perceptron for $epochs epochs with learning rate $learningRate")
+        terminal.flush()
+
+        perceptron = Perceptron(inputsClassTrue, inputsClassFalse, learningRate, terminal)
 
         // Train perceptron
         when (showChart) {
@@ -55,24 +61,26 @@ class PerceptronCLI {
         }
 
         // Print final weights and bias
-        println("Weights: ${perceptron.weights.contentToString()}")
-        println("Bias: ${perceptron.bias}")
+        terminal.writer().println("Weights: ${perceptron.weights.contentToString()}")
+        terminal.writer().println("Bias: ${perceptron.bias}")
+        terminal.flush()
     }
 
     @ShellMethod("Make a prediction with the perceptron for the whole AND dataset.")
     fun predict() {
 
-        println("Calculate outputs:")
+        terminal.writer().println("Calculate outputs:")
         for (input in inputsClassTrue) {
-            println("Input: ${input.contentToString()}; Guessed output: ${perceptron.calculateOutput(input)}")
+            terminal.writer().println("Input: ${input.contentToString()}; Guessed output: ${perceptron.calculateOutput(input)}")
         }
 
 
         for (input in inputsClassFalse) {
-            println("Input: ${input.contentToString()} Guessed output: ${perceptron.calculateOutput(input)}")
+            terminal.writer().println("Input: ${input.contentToString()} Guessed output: ${perceptron.calculateOutput(input)}")
         }
 
         // By using this formula we can calculate the output of the perceptron for any input
-        println("Model: ${perceptron.getModel()}")
+        terminal.writer().println("Model: ${perceptron.getModel()}")
+        terminal.flush()
     }
 }
