@@ -28,4 +28,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'liberica'
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
     - run: ./gradlew build
