@@ -44,9 +44,11 @@ class Perceptron(
 
     // Initialize weights to random values
     var weights = DoubleArray(inputsClass1[0].size) { Math.random() }
+        private set
 
     // Initialize bias to random value
     var bias = Math.random()
+        private set
 
     // Train perceptron
     fun train(epochs: Int = 10, onUpdate: (Array<DoubleArray>) -> Unit = {}
