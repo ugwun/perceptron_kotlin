@@ -35,25 +35,43 @@ class PerceptronTest {
         val perceptron = Perceptron(inputsClassTrue, inputsClassFalse, terminal = terminal)
         val originalWeights = perceptron.weights.copyOf()
         val originalBias = perceptron.bias
+        val expected = originalBias * originalWeights[0] * originalWeights[1]
 
         // Act
         perceptron.train(epochs = 10)
+        val actual = perceptron.bias * perceptron.weights[0] * perceptron.weights[1]
 
         // Assert
-        assertNotEquals(originalWeights[0], perceptron.weights[0])
-        assertNotEquals(originalWeights[1], perceptron.weights[1])
-        assertNotEquals(originalBias, perceptron.bias)
-    }
-
-    @Test
-    fun calculateOutput() {
+        assertNotEquals(expected, actual)
     }
 
     @Test
     fun getModel() {
+        // Prepare
+        val perceptron = Perceptron(inputsClassTrue, inputsClassFalse, terminal = terminal)
+
+        // Act
+        val model = perceptron.getModel()
+
+        // Assert
+        assertTrue(model.contains("0 ="))
+        assertTrue(model.contains("*x"))
     }
 
     @Test
     fun getSeparationLineCoordinates() {
+        // Prepare
+        val perceptron = Perceptron(inputsClassTrue, inputsClassFalse, terminal = terminal)
+        Mockito.`when`(terminal.writer()).thenReturn(PrintWriter(System.out))
+
+        // Act
+        val coordinates = perceptron.getSeparationLineCoordinates()
+
+        // Assert
+        assertEquals(2, coordinates.size)
+        assertEquals(2, coordinates[0].size)
+        assertEquals(2, coordinates[1].size)
+        assertEquals(0.0, coordinates[0][0])
+        assertEquals(1.0, coordinates[0][1])
     }
 }
