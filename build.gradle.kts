@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.csadovsky"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -46,3 +46,5 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "17"
     }
 }
+
+
