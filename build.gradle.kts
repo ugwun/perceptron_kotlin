@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.csadovsky"
-version = "1.0"
+version = "v1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
