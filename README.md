@@ -37,6 +37,7 @@ the chart window to bring it into focus.
 
 This is and example of the chart after 10 epochs of training:
 ![An example of final chart](final_chart.png)
+
 The chart represents the AND logic gate.
 You can see that the perceptron has learned to classify the AND boolean logic. Everything above the separation line is
 classified as 1, and everything below is classified as 0.
