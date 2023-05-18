@@ -19,22 +19,22 @@ import org.springframework.shell.standard.ShellOption
  * time. This is because the weights are initialized randomly each time.
  */
 @ShellComponent
-class PerceptronCLI (@Autowired val terminal: Terminal) {
-
-    // Define a field for the perceptron instance.
-    private lateinit var perceptron: Perceptron
+class PerceptronCLI (@Autowired final val terminal: Terminal) {
 
     // Inputs for class 1 - AND => TRUE - in Perceptron represented as 1
-    val inputsClassTrue = arrayOf(
+    final val inputsClassTrue = arrayOf(
         doubleArrayOf(1.0, 1.0)
     )
 
     // Inputs for class 2 - AND => FALSE - in Perceptron represented as -1
-    val inputsClassFalse = arrayOf(
+    final val inputsClassFalse = arrayOf(
         doubleArrayOf(0.0, 0.0),
         doubleArrayOf(0.0, 1.0),
         doubleArrayOf(1.0, 0.0)
     )
+
+    // Define a field for the perceptron instance.
+    private var perceptron: Perceptron = Perceptron(inputsClassTrue, inputsClassFalse, 0.1, terminal)
 
     @ShellMethod("Train the perceptron on the AND data set")
     fun train(
@@ -48,7 +48,7 @@ class PerceptronCLI (@Autowired val terminal: Terminal) {
         terminal.writer().println("Training perceptron for $epochs epochs with learning rate $learningRate")
         terminal.flush()
 
-        perceptron = Perceptron(inputsClassTrue, inputsClassFalse, learningRate, terminal)
+        perceptron.learningRate = learningRate
 
         // Train perceptron
         when (showChart) {

@@ -26,7 +26,7 @@ import org.jline.terminal.Terminal
 class Perceptron(
     val inputsClass1: Array<DoubleArray>,
     val inputsClass2: Array<DoubleArray>,
-    val learningRate: Double = 0.1,
+    var learningRate: Double = 0.1,
     private val terminal: Terminal
 ) {
 
